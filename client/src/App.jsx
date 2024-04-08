@@ -1,14 +1,10 @@
 
-
-
-
-
 function App() {
   
 
   return (
     <>
-    <h1>radhe</h1>
+        
     </>
   )
 }
