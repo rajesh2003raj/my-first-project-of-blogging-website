@@ -2,7 +2,6 @@ import { Link, useLocation} from "react-router-dom"
 import { Navbar, Button,TextInput}  from  "flowbite-react"
 import { FaSearch  } from "react-icons/fa";
 import { MdDarkMode } from "react-icons/md";
-import { PiSunDimLight } from "react-icons/pi";
 function Headers() {
   const path=useLocation().pathname;
   return (

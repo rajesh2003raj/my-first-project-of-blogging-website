@@ -6,6 +6,7 @@ import SignInPage from "../pages/SignInPage";
 import AdminPanelPage from "../pages/AdminPanelPage";
 import Layout from "../Layout.jsx/layout";
 
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
@@ -18,7 +19,9 @@ const router = createBrowserRouter(
       <Route path="SignUp" element={<SignInPage />} />
       <Route path="Admin" element={<AdminPanelPage />} />
       <Route path="*" element={<div>Page not found!</div>} />
+       
     </Route>
+    
   )
 );
 
