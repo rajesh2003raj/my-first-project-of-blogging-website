@@ -14,8 +14,8 @@ const router = createBrowserRouter(
         {/* Nested route for "About" page */}
         <Route path="product" element={<div> Hello world </div>} />
       </Route>
-      <Route path="SignIn" element={<SignInPage />} />
-      <Route path="SignUp" element={<SignUpPage />} />
+      <Route path="SignIn" element={<SignUpPage />} />
+      <Route path="SignUp" element={<SignInPage />} />
       <Route path="Admin" element={<AdminPanelPage />} />
       <Route path="*" element={<div>Page not found!</div>} />
     </Route>

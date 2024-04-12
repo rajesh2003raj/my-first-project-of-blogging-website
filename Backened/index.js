@@ -19,7 +19,7 @@ mongoose.connect(process.env.MONGO)
 dataConnected()
 
    .then(() => {
-      app.listen(process.env.PORT || 8000, () => {
+      app.listen(process.env.PORT || 3000, () => {
           console.log(`server is running on this port: ${process.env.PORT}`)
       })
   })
