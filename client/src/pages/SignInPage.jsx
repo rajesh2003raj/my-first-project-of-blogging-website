@@ -2,26 +2,29 @@ import { Link  ,useNavigate } from "react-router-dom"
 import { Alert ,Button, Label, TextInput,Spinner} from "flowbite-react"
 import { useState  } from "react"
 
-export default function SignUpPage() {
+import {signInstart ,signInFailure,signInSuccess} from '../redux/store/user/userSlice'
+ import {useDispatch,useSelector} from 'react-redux'
 
+export default function SignUpPage() {
+  const dispatch=useDispatch()
 
  const [formData ,setformData]=useState({});
- const [errorMessage, setErrorMessage] = useState(null);
- const [loading, setLoading] = useState(false);
- const navigate = useNavigate();
+ const {loading ,error:errorMessage}=useSelector((state)=>state.user);
+ const navigate=useNavigate()
   const handleChange=(e)=>{
     setformData({...formData,[e.target.id]:e.target.value.trim()})
 
   };
   const handleSumbit= async (e)=>{
     e.preventDefault();
-     if( ! formData.email || !formData.password || formData.email==="" || formData.password===""){
-           return  setErrorMessage('All fields are mandatory')
+   
+    
+     if( ! formData.email || !formData.password ){
+           return  dispatch(signInFailure('All fields are mandatory'))
      } 
 
      try{
-      setLoading(true)
-      setErrorMessage(null)
+      dispatch(signInstart())
      const  res= await fetch('/api/v1/signin',{
         method:'POST',
         headers:{ 'Content-Type':'application/json'},
@@ -29,19 +32,19 @@ export default function SignUpPage() {
         
      })
      const data=await res.json();
-     if(data.sucess===false){
-        return  setErrorMessage('provide correct password or email')
+     if(data.success===false){
+           dispatch(signInFailure(data.message))
      }
-      setLoading(false)
+      
       if(res.ok){
+        dispatch(signInSuccess(data))
         navigate('/')
       }
    }
-   catch(err){
-       return setErrorMessage(err.message),
-       setLoading(false)
-   } 
+   catch(error){
+      dispatch(signInFailure(error.message))
   }
+}
      
 
 
