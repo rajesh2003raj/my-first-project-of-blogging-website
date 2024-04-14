@@ -1,7 +1,7 @@
 import { Link  ,useNavigate } from "react-router-dom"
 import { Alert ,Button, Label, TextInput,Spinner} from "flowbite-react"
 import { useState  } from "react"
-
+import Oauth from "../components/Oauth"
 import {signInstart ,signInFailure,signInSuccess} from '../redux/store/user/userSlice'
  import {useDispatch,useSelector} from 'react-redux'
 
@@ -84,7 +84,7 @@ export default function SignUpPage() {
                  <Label value="Password"/>
                  <TextInput
                  type="password"
-                 placeholder="Passsword........."
+                 placeholder="*******************......."
                  id="password"
                  onChange={handleChange}
                  />
@@ -101,10 +101,11 @@ export default function SignUpPage() {
                   <span className='pl-3'>Loading...</span>
                   </>
                 ):
-                ('SignUp')
+                ('SignIn')
                }
 
             </Button>
+            <Oauth/>
              </form>
               
              <div className='flex gap-2 text-sm mt-5'>

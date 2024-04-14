@@ -75,5 +75,56 @@ const SignIn=async(req,res,next)=>{
           next(error)
     }
 }
+const google= async(req,res,next)=>{
+    
+    const {name,email ,googlePhotoUrl}=req.body;
+   
 
-export {SignUP,SignIn}
+    try {
+        const user= await  User.findOne({email});
+        if(user){
+           const token= jwt.sign({id:user._id},process.env.SECRET_KEY);
+              
+           const{password,...rest}=user._doc;
+           res
+           .status(200)
+           .cookie('access_Token',token,{
+            httpOnly:true
+           })
+           .json(rest);
+        }
+        else{
+         // if user not exits then we have to do following things 
+          // take take that we gave from email id and save to data base
+          // and create random password password for it 
+          const generatedPassword =
+          Math.random().toString(36).slice(-8) +
+          Math.random().toString(36).slice(-8);
+          // now password is hashes
+           const hashedPassword=bcryptjs.hashSync(generatedPassword,10);
+            const newUser= new User({
+                userName:name.toLowerCase().split(' ').join('')+Math.random.toString(9).slice(4),
+                email,
+                password:hashedPassword,
+                profilePicture:googlePhotoUrl
+            })
+    
+            /// now we save to our database
+            await newUser.save();
+            const token=jwt.sign({id:newUser._id},process.env.SECRET_KEY);
+            const { password, ...rest } = newUser._doc;
+            res
+            .status(200)
+            .cookie('Access_Token',token,{
+                httpOnly:true
+            })
+            .json(rest)
+           
+        }
+    } catch (error) {
+           next(error);
+    }
+
+     
+}
+export {SignUP,SignIn,google}

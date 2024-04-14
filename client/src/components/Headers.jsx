@@ -1,8 +1,13 @@
 import { Link, useLocation} from "react-router-dom"
-import { Navbar, Button,TextInput}  from  "flowbite-react"
+import { Navbar, Button,TextInput, Dropdown, Avatar}  from  "flowbite-react"
 import { FaSearch  } from "react-icons/fa";
 import { MdDarkMode } from "react-icons/md";
+import {  HiLogout } from "react-icons/hi";
+import {useSelector} from 'react-redux'
 function Headers() {
+
+    const {currentUser}=useSelector((state)=>state.user);
+
   const path=useLocation().pathname;
   return (
     <>   
@@ -32,12 +37,43 @@ function Headers() {
                </Button>
             
             {/* we have to signIn button */}
-             <Link
-             to="/signIn"
-              
-             >
-              <Button gradientDuoTone="purpleToBlue" >SignIn</Button>
-             </Link> 
+            {
+              (currentUser)?(
+                
+                <Dropdown
+                  arrowIcon={false}
+                  inline
+                  label= {<Avatar
+                   alt="user"
+                   img={currentUser.profilePicture}
+                   rounded
+                   />}
+                   >
+                   <Dropdown.Header>
+                   
+                   <span className="block truncate text-sm font-medium">{currentUser.email}</span>
+                 </Dropdown.Header>
+                 
+                 <Link to={'/'}>
+                   <Dropdown.Item>@Profile</Dropdown.Item>
+                 </Link>
+                 <Dropdown.Divider />
+                 <Dropdown.Item icon={HiLogout}>Sign out</Dropdown.Item>
+               </Dropdown>
+                   
+                 
+                 
+                
+              ):(
+                <Link
+                to="/signIn"
+                 
+                >
+                 <Button gradientDuoTone="purpleToBlue" >SignIn</Button>
+                </Link> 
+              )
+            }
+            
       
             <Navbar.Toggle/>
             </div>

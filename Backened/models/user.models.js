@@ -17,6 +17,10 @@ const userSchema=new mongoose.Schema({
         type:String,
         required:true
     },
+    profilePicture:{
+        type:String,
+        default:"https://t4.ftcdn.net/jpg/05/22/77/67/240_F_522776712_3YT2vcT49YEvd8jYg5IGY4jlbHPPmJWc.jpg"
+    }
 },{timestamps:true});
 
 const User=mongoose.model('User',userSchema);
