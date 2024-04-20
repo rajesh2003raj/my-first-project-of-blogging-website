@@ -83,6 +83,8 @@ const google= async(req,res,next)=>{
     try {
         const user= await  User.findOne({email});
         if(user){
+            // here we crate token using id  so when we have to verify
+            // user for some update then use these id
            const token= jwt.sign({id:user._id},process.env.SECRET_KEY);
               
            const{password,...rest}=user._doc;
@@ -103,7 +105,7 @@ const google= async(req,res,next)=>{
           // now password is hashes
            const hashedPassword=bcryptjs.hashSync(generatedPassword,10);
             const newUser= new User({
-                userName:name.toLowerCase().split(' ').join('')+Math.random.toString(9).slice(4),
+                userName:name.toLowerCase().split(' ').join('')+Math.random().toString(9).slice(4),
                 email,
                 password:hashedPassword,
                 profilePicture:googlePhotoUrl

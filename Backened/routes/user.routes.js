@@ -1,10 +1,14 @@
 import {Router} from 'express'
-import { test } from '../controllers/user.controller.js';
+import {  updateUser } from '../controllers/user.controller.js';
+import { verifyToken } from '../utilis/verifyUser.js';
+
 const userRouter=Router();
 
-  userRouter.route('/test')
-  .get(test)
  
+ 
+  userRouter
+  .route('/update/:userId')
+  .put(verifyToken,updateUser)
 
 
 export default userRouter
