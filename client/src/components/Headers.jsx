@@ -5,12 +5,33 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import {  HiLogout } from "react-icons/hi";
 import {useSelector} from 'react-redux';
  import {toggleTheme} from '../redux/store/theme/themeSlice'
+ import { signoutSuccess } from "../redux/store/user/userSlice";
  import { useDispatch } from "react-redux";
 function Headers() {
     const dispatch=useDispatch();
     const {currentUser}=useSelector((state)=>state.user);
      const {theme}=useSelector((state)=>state.theme);
   const path=useLocation().pathname;
+  const handleSignout=async()=>{
+            
+    try {
+          const res= await fetch('/api/v1/signout',{
+            method:'POST'
+          });
+
+      const data=  await res.json();
+      if(!res.ok){
+         console.log(data.message)
+      } 
+      else{
+        dispatch(signoutSuccess(data))
+      }
+          
+    } catch (error) {
+         console.log(error.message)
+    }
+  }
+
   return (
     <>   
         <Navbar className="sticky top-0 z-50">
@@ -62,7 +83,7 @@ function Headers() {
                    <Dropdown.Item>@Profile</Dropdown.Item>
                  </Link>
                  <Dropdown.Divider />
-                 <Dropdown.Item icon={HiLogout}>Sign out</Dropdown.Item>
+                 <Dropdown.Item icon={HiLogout} onClick={handleSignout}>Sign out</Dropdown.Item>
                </Dropdown>
                    
                  

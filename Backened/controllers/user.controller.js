@@ -62,3 +62,13 @@ export const updateUser = async (req, res, next) => {
         } 
      
    }
+   export const signOut=async(req,res,next)=>{
+           try {
+              res
+              .clearCookie('Access_Token')
+              .status(200)
+              .json('user has signed out')
+           } catch (error) {
+              next(error)
+           }
+   }

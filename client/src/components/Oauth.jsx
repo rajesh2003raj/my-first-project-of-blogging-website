@@ -29,7 +29,7 @@ export default function OAuth() {
             if (res.ok){
                  console.log(data);
                 dispatch(signInSuccess(data))
-                navigate('/dashboard?tab=profile')
+                navigate('/')
             }
         } catch (error) {
             console.log(error);

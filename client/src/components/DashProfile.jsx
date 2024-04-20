@@ -3,7 +3,7 @@ import {Alert, Button, TextInput} from 'flowbite-react'
 import { useEffect, useRef, useState } from 'react'
 import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/storage'
  import {app} from '../Firebase'
- import {updateSuccess,updateStart,updateFailure,deleteStart,deleteSuccess,detelteFailure} from '../redux/store/user/userSlice'
+ import {updateSuccess,updateStart,updateFailure,deleteStart,deleteSuccess,detelteFailure,signoutSuccess} from '../redux/store/user/userSlice'
  import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
  import { useDispatch } from 'react-redux'
@@ -145,6 +145,26 @@ export default function DashProfile() {
        }
       }
 
+      const handleSignout=async()=>{
+            
+        try {
+              const res= await fetch('/api/v1/signout',{
+                method:'POST'
+              });
+
+          const data=  await res.json();
+          if(!res.ok){
+             console.log(data.message)
+          } 
+          else{
+            dispatch(signoutSuccess(data))
+          }
+              
+        } catch (error) {
+             console.log(error.message)
+        }
+      }
+
   return (
      
      
@@ -237,7 +257,7 @@ export default function DashProfile() {
   <span   onClick={()=> setshowModal(true)}     className='cursor-pointer'>
     Delete Account
   </span>
-  <span  className='cursor-pointer'>
+  <span onClick={ handleSignout} className='cursor-pointer'>
       Logout
   </span>
 </div>

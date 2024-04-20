@@ -1,5 +1,5 @@
 import {Router} from 'express'
-import {  updateUser ,deleteUser} from '../controllers/user.controller.js';
+import {  updateUser ,deleteUser, signOut} from '../controllers/user.controller.js';
 import { verifyToken } from '../utilis/verifyUser.js';
 
 const userRouter=Router();
@@ -13,5 +13,8 @@ const userRouter=Router();
    userRouter
    .route('/delete/:userId')
    .delete(verifyToken,deleteUser);
+   userRouter
+   .route('/signout')
+   .post(signOut)
 
 export default userRouter
