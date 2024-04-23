@@ -12,6 +12,10 @@ app.use('/api/v1',UserRouter);
 
  app.use('/api/v1',authRouter)
 // here we create error handling middleware 
+ // 
+ import   Postrouter from "./routes/CreatePost.router.js";
+ app.use('/api/post',Postrouter);
+
  app.use((err,req,res,next)=>{
        
     const statuscode=err.statuscode || 500;

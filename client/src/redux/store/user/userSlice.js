@@ -25,36 +25,37 @@ const userSlice = createSlice({
       state.error = action.payload;
     },
      updateStart:(state)=>{
-       state.loading=true,
-       state.error=null
+       state.loading=true;
+       state.error=null;
      },
      updateSuccess:(state,action)=>{
-          state.loading=true,
+          
             state.currentUser=action.payload,
-            state.error=false
+            state.loading=false;
+            state.error=null;
 
      },
      updateFailure:(state,action)=>{
-          state.loading=false,
-          state.error=action.payload
+          state.loading=false;
+          state.error=action.payload;
      },
      deleteStart:(state)=>{
         state.loading=true;
-        state.error=null
+        state.error=null;
      },
      deleteSuccess:(state)=>{
-        state.currentUser=null,
-        state.loading=true,
-        state.error=null
+        state.currentUser=null;
+        state.loading=false;
+        state.error=null;
      },
      detelteFailure:(state,action)=>{
-       state.error=action.payload,
+       state.error=action.payload;
        state.loading=false;
      },
      signoutSuccess:(state)=>{
-        state.currentUser=null,
-        state.error=null,
-        state.loading=false
+        state.currentUser=null;
+        state.error=null;
+        state.loading=false;
      }
    },
    });

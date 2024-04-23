@@ -20,6 +20,10 @@ const userSchema=new mongoose.Schema({
     profilePicture:{
         type:String,
         default:"https://t4.ftcdn.net/jpg/05/22/77/67/240_F_522776712_3YT2vcT49YEvd8jYg5IGY4jlbHPPmJWc.jpg"
+    },
+    isAdmin:{
+        type:Boolean,
+        default:false
     }
 },{timestamps:true});
 

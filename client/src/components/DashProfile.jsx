@@ -9,6 +9,7 @@ import 'react-circular-progressbar/dist/styles.css';
  import { useDispatch } from 'react-redux'
  import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { Modal } from 'flowbite-react'
+import { Link } from 'react-router-dom'
 export default function DashProfile() {
      
     const filePicker=useRef()
@@ -28,7 +29,8 @@ export default function DashProfile() {
            const file=e.target.files[0];
            if(file){
             setimageFile(file)
-            setimagefileUrl(URL.createObjectURL(file))
+            setimagefileUrl(URL.createObjectURL(file));
+             
            }
         
       };
@@ -37,7 +39,7 @@ export default function DashProfile() {
         if (imageFile) {
           uploadImage();
         }
-      },[imageFile]); // This ensures the effect runs whenever imageFile changes
+      },[imageFile]); 
       
       
      const handleChange=(e)=>{
@@ -48,16 +50,19 @@ export default function DashProfile() {
 
 
 
-      const uploadImage = async () => {  
+    const uploadImage = async() => { 
 
-         setimageFileUploadError(null);
-         setimageFileUploading(true)
+        setimageFileUploading(true)
+          
+       setimageFileUploadError(null);
+         
+         console.log('imageFileUploading radhe ',imageFileUploading)
         const storage = getStorage(app);
         const fileName = new Date().getTime() + imageFile.name;
         const storageRef = ref(storage, fileName);
         const uploadTask = uploadBytesResumable(storageRef, imageFile);
       
-        // Attach event listeners for upload progress, error, and completion
+        
         uploadTask.on('state_changed', (snapshot) => {
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           setimageFileUploadProgress(progress.toFixed(0));
@@ -73,35 +78,42 @@ export default function DashProfile() {
         }, () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             setimagefileUrl(downloadURL);
-              setformData({...formData,profilePicture:downloadURL})
-              setimageFileUploading(false)
+             
+              
+              setformData({...formData,profilePicture:downloadURL});
+              
+              setimageFileUploading(false);
           });
         });
         
       };
-       console.log(formData);
+       
       const handleUpdate= async(e)=>{
-        // first we have verfiy that data should not empty for that we have to check 
-         e.preventDefault();
-         {/*   here we do this because of set it null again  if previous value is not null then it becomes  null it */}
+
+           
+           e.preventDefault();
+         
              setupdateUserError(null);
            setupdateUserSuccess(null);
            {/* check it value should not be null */}
-           if(Object.keys(formData).length==0){
-             
-              setupdateUserError('no made change ')
-            return;
+           if(Object.keys(formData).length===0){
+            
+              setupdateUserError('no made change  ');
+                  return;
            }
-     {/*   when image is uploading we cannot do anythings so that we use it here  */}
-           if(imageFileUploading){
-             setupdateUserError('image is uploading ....')
+         
+           
+          if(imageFileUploading){
+            
+            setupdateUserError(' image is uploading ....')
             return;
+          
            }
         
 
            try {
                dispatch(updateStart())
-              const res=await fetch(`/api/v1/update/${currentUser._id}`,{
+              const res= await fetch(`/api/v1/update/${currentUser._id}`,{
                    method:'PUT',
                    headers:{
                     'content-Type': 'application/json',
@@ -248,10 +260,25 @@ export default function DashProfile() {
     type='submit'
     gradientDuoTone='purpleToBlue'
     outline
-    
+      disabled={ loading }
   >
-    Update
+    {loading ? 'Loading....' : 'Update'}
   </Button>  
+  {
+    currentUser.isAdmin && (
+        
+      <Link to='/create-post'>
+       <Button
+       type='button'
+       gradientDuoTone='purpleToPink'
+       className='w-full'
+       >
+        Create  a Post
+       </Button>
+      </Link>
+       
+    )
+  }
 </form>
 <div className='text-red-500 flex justify-between mt-5'>
   <span   onClick={()=> setshowModal(true)}     className='cursor-pointer'>
@@ -261,23 +288,24 @@ export default function DashProfile() {
       Logout
   </span>
 </div>
+
 {
-  updateUserSuccess && 
+  updateUserSuccess &&( 
   <Alert
     color='success'
     className='mt-5'
     
   >{updateUserSuccess}
-  </Alert>
+  </Alert>)
 }
 {
-  updateUserError && 
+  updateUserError &&(
   <Alert
      color= 'failure'
       className='mt-5'
      >
     {updateUserError}
-  </Alert>
+  </Alert>)
 }
 {
    error  && 

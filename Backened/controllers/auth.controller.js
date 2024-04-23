@@ -58,7 +58,9 @@ const SignIn=async(req,res,next)=>{
          // now we have to provide token to the user using jwt token 
          // generate tokens here
            const token=jwt.sign({
-            id:validUser._id},
+            id:validUser._id,
+            isAdmin:validUser.isAdmin
+        },
             
             process.env.SECRET_KEY,
              { expiresIn:'2h'}
@@ -85,7 +87,7 @@ const google= async(req,res,next)=>{
         if(user){
             // here we crate token using id  so when we have to verify
             // user for some update then use these id
-           const token= jwt.sign({id:user._id},process.env.SECRET_KEY);
+           const token= jwt.sign({id:user._id,isAdmin:user.isAdmin},process.env.SECRET_KEY);
               
            const{password,...rest}=user._doc;
            res
@@ -113,7 +115,7 @@ const google= async(req,res,next)=>{
     
             /// now we save to our database
             await newUser.save();
-            const token=jwt.sign({id:newUser._id},process.env.SECRET_KEY);
+            const token=jwt.sign({id:newUser._id,isAdmin:newUser.isAdmin},process.env.SECRET_KEY);
             const { password, ...rest } = newUser._doc;
             res
             .status(200)

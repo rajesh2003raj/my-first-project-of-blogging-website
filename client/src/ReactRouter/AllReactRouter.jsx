@@ -7,7 +7,8 @@ import AdminPanelPage from "../pages/AdminPanelPage";
 import Layout from "../Layout.jsx/layout";
 import DashBoard from "../pages/DashBoard";
 import PrivateRoute from "../components/PrivateRoute";
-
+import OnlyAdminPrivate from "../components/OnlyAdminPrivate"
+import CreatePost from "../pages/CreatePost";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
@@ -16,9 +17,15 @@ const router = createBrowserRouter(
       <Route path="SignIn" element={<SignUpPage />} />
       <Route path="SignUp" element={<SignInPage />} />
       
-      <Route path='/dashboard' element={<DashBoard />} />
+      {/* here we write private Router */}
     
-      <Route path="Admin" element={<AdminPanelPage />} />
+        <Route element={<PrivateRoute/>}>
+           <Route path="/dashBoard" element={<DashBoard/>}/>
+        </Route>  
+       <Route element={<OnlyAdminPrivate/>}>
+          <Route path="/create-post" element={<CreatePost/>}/>
+       </Route>  
+      
       <Route path="*" element={<div>Page not found!</div>} />
        
     </Route>
