@@ -3,6 +3,7 @@ import {useSelector} from 'react-redux'
 import {Table,Modal,Button} from 'flowbite-react'
 import {Link} from 'react-router-dom'
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
+
 export default function DashPost() {
     
   const[userPost,setUserPost]=useState([]);
@@ -11,15 +12,18 @@ export default function DashPost() {
   const [postIdToDelete, setPostIdToDelete] = useState('');
   const {currentUser}= useSelector((state)=>state.user);
   console.log(userPost)
+
  useEffect(()=>{
     
   const fetchPost= async()=>{
 
       try {
-        const res=await fetch(`/api/post/getpost?userId=${currentUser._id}`);
+        const res=await fetch(`/api/post/getposts?userId=${currentUser._id}`);
+        
           const data= await res.json();
           if(res.ok){
-       setUserPost(data.posts)
+         setUserPost(data.posts)
+        
          if(data.posts.length<9){
            setshowMore(false)
          }
@@ -65,7 +69,7 @@ export default function DashPost() {
       const startIndex = userPost.length;
     try {
       const res = await fetch(
-        `/api/post/getpost?userId=${currentUser._id}&startIndex=${startIndex}`
+        `/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`
       );
       const data = await res.json();
       if (res.ok) {

@@ -9,6 +9,7 @@ import DashBoard from "../pages/DashBoard";
 import PrivateRoute from "../components/PrivateRoute";
 import OnlyAdminPrivate from "../components/OnlyAdminPrivate"
 import CreatePost from "../pages/CreatePost";
+import UpdatePost from "../pages/UpdatePost";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
@@ -24,6 +25,8 @@ const router = createBrowserRouter(
         </Route>  
        <Route element={<OnlyAdminPrivate/>}>
           <Route path="/create-post" element={<CreatePost/>}/>
+          <Route path="/update-post/:postId" element={<UpdatePost/>}/>
+        
        </Route>  
       
       <Route path="*" element={<div>Page not found!</div>} />
