@@ -14,7 +14,12 @@ app.use('/api/v1',UserRouter);
 // here we create error handling middleware 
  // 
  import   Postrouter from "./routes/CreatePost.router.js";
+
  app.use('/api/post',Postrouter);
+
+ // here we create Comment Router 
+ import commentRouter from "./routes/Comment.route.js";
+ app.use('/api/v1/',commentRouter)
 
  app.use((err,req,res,next)=>{
        

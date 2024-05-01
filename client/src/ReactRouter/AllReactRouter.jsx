@@ -10,6 +10,7 @@ import PrivateRoute from "../components/PrivateRoute";
 import OnlyAdminPrivate from "../components/OnlyAdminPrivate"
 import CreatePost from "../pages/CreatePost";
 import UpdatePost from "../pages/UpdatePost";
+import PostPage from "../pages/PostPage";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
@@ -28,8 +29,8 @@ const router = createBrowserRouter(
           <Route path="/update-post/:postId" element={<UpdatePost/>}/>
         
        </Route>  
-      
-      <Route path="*" element={<div>Page not found!</div>} />
+        <Route path="/post/:postSlug"  element={<PostPage/>}/>
+
        
     </Route>
     
