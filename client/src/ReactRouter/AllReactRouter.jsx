@@ -11,9 +11,12 @@ import OnlyAdminPrivate from "../components/OnlyAdminPrivate"
 import CreatePost from "../pages/CreatePost";
 import UpdatePost from "../pages/UpdatePost";
 import PostPage from "../pages/PostPage";
+import ScrollToTop from "../components/ScroolTotop";
 const router = createBrowserRouter(
   createRoutesFromElements(
+    
     <Route path="/" element={<Layout />}>
+    
       <Route path="" element={<HomePage />} />
       <Route path="About" element={<AboutPage />}/>
       <Route path="SignIn" element={<SignUpPage />} />

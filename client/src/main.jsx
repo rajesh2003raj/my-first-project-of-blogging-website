@@ -8,9 +8,11 @@ import ThemeProvider from './components/ThemeProviders.jsx'
 
 
 
+
 ReactDOM.createRoot(document.getElementById('root')).render(
    <Provider store={store}>
    <ThemeProvider >
+  
        <App/>
      </ThemeProvider>
       
