@@ -1,7 +1,7 @@
 import express from "express";
  
  import { verifyToken } from '../utilis/verifyUser.js';
- import { createComment,getPostComment ,getLikes ,deleteComment, editcomment} from '../controllers/Comment.controllers.js'
+ import { createComment,getPostComment ,getLikes ,deleteComment, editcomment,getComments} from '../controllers/Comment.controllers.js'
 const commentRouter=express.Router();
 commentRouter
 .route('/create/comment')
@@ -21,5 +21,9 @@ commentRouter
 commentRouter
 .route('/comment/deletecomment/:commentId')
 .delete(verifyToken,deleteComment);
+ 
+commentRouter
+.route('/comment/getcomments')
+.get(verifyToken,getComments);
 
 export default commentRouter;

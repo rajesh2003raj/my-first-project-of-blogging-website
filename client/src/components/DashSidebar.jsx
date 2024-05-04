@@ -84,7 +84,21 @@ export default function DashSidebar() {
             </Link>
           )
         }
-
+    
+        {
+          currentUser.isAdmin && (
+            <Link to='/DashBoard?tab=comments'>
+            <Sidebar.Item
+            active={tab==='comments'}
+            label={currentUser.isAdmin ? 'Admin' : 'User'}
+            icon={HiDocumentText}
+            as='div'>
+             Comments
+            </Sidebar.Item>
+            
+            </Link>
+          )
+        }
 
        
         <Sidebar.Item 

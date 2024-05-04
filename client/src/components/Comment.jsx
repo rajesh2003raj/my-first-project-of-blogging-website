@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { Button, Textarea } from 'flowbite-react';
 
 
-export default function Comment({ comment, onLike, onEdit, onDelete }) {
+ export default function Comment({ comment, onLike, onEdit, onDelete }) {
   const [user, setUser] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(comment.content);
@@ -56,13 +56,13 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
         <img
           className='w-10 h-10 rounded-full bg-gray-200'
           src={user.profilePicture}
-          alt={user.username}
+          alt={user.userName}
         />
       </div>
       <div className='flex-1'>
         <div className='flex items-center mb-1'>
           <span className='font-bold mr-1 text-xs truncate'>
-            {user ? `@${user.userName}` : 'anonymous user'}
+            {user ? `@${user.email}` : 'anonymous user'}
           </span>
           <span className='text-gray-500 text-xs'>
             {moment(comment.createdAt).fromNow()}
