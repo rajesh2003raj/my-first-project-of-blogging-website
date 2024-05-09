@@ -1,75 +1,64 @@
 import express from "express";
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
-import dotenv  from 'dotenv'
-
-dotenv.config();
+import dotenv from 'dotenv';
 import path from 'path';
 
+// Load environment variables
+dotenv.config();
 
+// Define __dirname for resolving paths
 const __dirname = path.resolve();
 
-const app=express()
-app.use(express.static(path.join(__dirname, '/client/dist')));
+// Create Express app
+const app = express();
 
-mongoose.connect(process.env.MONGO)
-.then(()=>{
-   console.log('successfully connected')
-   app.listen(process.env.PORT || 8000,()=>{
-       console.log(`server is running on this port:${process.env.PORT}`);
-   })
-})
-.catch((err)=>{
-   console.log('not connected successfully!');
-})
-
-
-
-
-
-
-
-app.use(express.json())
+// Middleware
+app.use(express.json());
 app.use(cookieParser());
 
+// Serve static files
+app.use(express.static(path.join(__dirname, 'client', 'dist')));
 
-// here we write about router
- 
+// MongoDB connection
+mongoose.connect(process.env.MONGO)
+  .then(() => {
+    console.log('MongoDB connected successfully');
+    // Start the server
+    const port = process.env.PORT || 8000;
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
+    });
+  })
+  .catch((err) => {
+    console.error('Error connecting to MongoDB:', err);
+  });
 
+// Routes
+import UserRouter from './routes/user.routes.js';
+import authRouter from './routes/auth.route.js';
+import Postrouter from './routes/CreatePost.router.js';
+import commentRouter from './routes/Comment.route.js';
 
-import UserRouter from './routes/user.routes.js'
-app.use('/api/v1',UserRouter);
- import authRouter from './routes/auth.route.js'
+app.use('/api/v1/users', UserRouter);
+app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/posts', Postrouter);
+app.use('/api/v1/comments', commentRouter);
 
- app.use('/api/v1',authRouter)
-// here we create error handling middleware 
- // 
- import   Postrouter from "./routes/CreatePost.router.js";
+// Serve index.html for any other routes (SPA support)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
 
- app.use('/api/post',Postrouter);
+// Error handling middleware
+app.use((err, req, res, next) => {
+  const statuscode = err.statuscode || 500;
+  const message = err.message || 'Internal server error';
+  res.status(statuscode).json({
+    success: false,
+    statuscode,
+    message
+  });
+});
 
- // here we create Comment Router 
- import commentRouter from "./routes/Comment.route.js";
-
- app.use('/api/v1/',commentRouter)
-
- 
- app.get('*', (req, res) => {
-   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
- });
-
- app.use((err,req,res,next)=>{
-       
-    const statuscode=err.statuscode || 500;
-    const message=err.message || 'internal server'
-    res.status(statuscode).json({
-        success:false,
-        statuscode,
-        message
-    })
- })
-
-export  {app}
-
-
-
+export default app;
