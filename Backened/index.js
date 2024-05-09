@@ -46,6 +46,8 @@ app.use('/api/v1/posts', Postrouter);
 app.use('/api/v1/comments', commentRouter);
 
 // Serve index.html for any other routes (SPA support)
+app.use(express.static(path.join(__dirname, 'client', 'dist')));
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
 });
