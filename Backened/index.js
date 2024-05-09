@@ -24,5 +24,5 @@ dataConnected()
       })
   })
 .catch((err)=>{
-   console.log('somethings went wrongs ',err);
+   console.log('somethings went wrongs ');
 })

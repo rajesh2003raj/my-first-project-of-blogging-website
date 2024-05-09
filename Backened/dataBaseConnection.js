@@ -9,7 +9,7 @@ const dataBase= async()=>{
       console.log('Mongo DB is connected Successfully!');
      }
      catch(e){
-       console.log('something went wrong !',err);
+       console.log('something went wrong !');
      }
    
      
