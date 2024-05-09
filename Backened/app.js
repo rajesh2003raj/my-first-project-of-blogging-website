@@ -6,6 +6,9 @@ app.use(cookieParser());
 import path from 'path';
 
 // here we write about router
+ 
+const __dirname = path.resolve();
+
 import UserRouter from './routes/user.routes.js'
 app.use('/api/v1',UserRouter);
  import authRouter from './routes/auth.route.js'
@@ -22,8 +25,7 @@ app.use('/api/v1',UserRouter);
 
  app.use('/api/v1/',commentRouter)
 
- 
-const __dirname = path.resolve();
+ app.use(express.static(path.join(__dirname, '/client/dist')));
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
   });
