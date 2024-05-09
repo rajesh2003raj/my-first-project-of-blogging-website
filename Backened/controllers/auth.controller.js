@@ -107,7 +107,7 @@ const google= async(req,res,next)=>{
           // now password is hashes
            const hashedPassword=bcryptjs.hashSync(generatedPassword,10);
             const newUser= new User({
-                userName:name.toLowerCase().split(' ').join('')+Math.random().toString(9).slice(4),
+                userName:name.toLowerCase().split(' ').join('') + Math.random().toString(9).slice(-4),
                 email,
                 password:hashedPassword,
                 profilePicture:googlePhotoUrl

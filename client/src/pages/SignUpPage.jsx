@@ -56,10 +56,10 @@ export default function SignUpPage() {
       <Link to="/" className=" text-sm md:text-lg dark:text-white">
       <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500
        to-pink-500 rounded-lg text-white
-      ">Rajesh</span>Blog
+      ">Tech</span>Blog
       </Link>
        <p>
-        Here we can share yours experience
+        Here we can find web development articles 
        </p>
       </div>
       {/* right components */}

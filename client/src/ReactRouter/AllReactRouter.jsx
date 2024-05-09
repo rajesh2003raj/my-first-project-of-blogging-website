@@ -3,7 +3,7 @@ import AboutPage from "../pages/AboutPage";
 import HomePage from "../pages/HomePage";
 import SignUpPage from "../pages/SignUpPage";
 import SignInPage from "../pages/SignInPage";
-import AdminPanelPage from "../pages/AdminPanelPage";
+import  Search from '../pages/Search'
 import Layout from "../Layout.jsx/layout";
 import DashBoard from "../pages/DashBoard";
 import PrivateRoute from "../components/PrivateRoute";
@@ -11,7 +11,8 @@ import OnlyAdminPrivate from "../components/OnlyAdminPrivate"
 import CreatePost from "../pages/CreatePost";
 import UpdatePost from "../pages/UpdatePost";
 import PostPage from "../pages/PostPage";
-import ScrollToTop from "../components/ScroolTotop";
+import Contact from "../pages/Contact";
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     
@@ -19,9 +20,10 @@ const router = createBrowserRouter(
     
       <Route path="" element={<HomePage />} />
       <Route path="About" element={<AboutPage />}/>
+      <Route path="Contact" element={<Contact/>}/>
       <Route path="SignIn" element={<SignUpPage />} />
       <Route path="SignUp" element={<SignInPage />} />
-      
+      <Route path="/search" element={<Search/>}/>
       {/* here we write private Router */}
     
         <Route element={<PrivateRoute/>}>
