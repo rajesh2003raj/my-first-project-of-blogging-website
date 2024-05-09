@@ -4,6 +4,10 @@ import {app} from './app.js'
 import dotenv  from 'dotenv'
 import dataConnected from './db/dataBaseConnections.js'
 dotenv.config();
+import path from 'path';
+
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, '/client/dist')));
 /*
 mongoose.connect(process.env.MONGO)
 .then(()=>{
@@ -26,3 +30,7 @@ dataConnected()
 .catch((err)=>{
    console.log('somethings went wrongs ');
 })
+
+app.get('*', (req, res) => {
+   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+ });

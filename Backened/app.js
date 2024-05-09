@@ -3,11 +3,11 @@ import cookieParser from "cookie-parser";
 const app=express()
 app.use(express.json())
 app.use(cookieParser());
-import path from 'path';
+
 
 // here we write about router
  
-const __dirname = path.resolve();
+
 
 import UserRouter from './routes/user.routes.js'
 app.use('/api/v1',UserRouter);
@@ -25,10 +25,8 @@ app.use('/api/v1',UserRouter);
 
  app.use('/api/v1/',commentRouter)
 
- app.use(express.static(path.join(__dirname, '/client/dist')));
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
-  });
+ 
+
 
  app.use((err,req,res,next)=>{
        
