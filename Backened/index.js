@@ -40,10 +40,23 @@ import authRouter from './routes/auth.route.js';
 import Postrouter from './routes/CreatePost.router.js';
 import commentRouter from './routes/Comment.route.js';
 
-app.use('/api/v1/users', UserRouter);
-app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/posts', Postrouter);
-app.use('/api/v1/comments', commentRouter);
+
+
+app.use('/api/v1',UserRouter);
+
+
+ app.use('/api/v1',authRouter)
+// here we create error handling middleware 
+ // 
+ 
+
+ app.use('/api/post',Postrouter);
+
+ // here we create Comment Router 
+
+
+ app.use('/api/v1/',commentRouter)
+
 
 // Serve index.html for any other routes (SPA support)
 app.use(express.static(path.join(__dirname, 'client', 'dist')));
