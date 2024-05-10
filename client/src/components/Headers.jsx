@@ -1,4 +1,4 @@
-import { Link, useLocation} from "react-router-dom"
+import { Link, useLocation,useNavigate} from "react-router-dom"
 import { Navbar, Button,TextInput, Dropdown, Avatar}  from  "flowbite-react"
 import { FaMoon, FaSun } from 'react-icons/fa';
 import { AiOutlineSearch } from 'react-icons/ai';
@@ -8,12 +8,12 @@ import { useEffect,useState } from "react";
  import {toggleTheme} from '../redux/store/theme/themeSlice'
  import { signoutSuccess } from "../redux/store/user/userSlice";
  import { useDispatch } from "react-redux";
- import { useNavigate } from "react-router-dom";
+
 function Headers() {
     const dispatch=useDispatch();
     const {currentUser}=useSelector((state)=>state.user);
      const {theme}=useSelector((state)=>state.theme);
-     const navigate=useNavigate()
+     const navigate=useNavigate();
   const path=useLocation().pathname;
   const [searchTerm, setSearchTerm] = useState('');
   
@@ -46,6 +46,7 @@ function Headers() {
       } 
       else{
         dispatch(signoutSuccess(data))
+        navigate('/')
       }
           
     } catch (error) {

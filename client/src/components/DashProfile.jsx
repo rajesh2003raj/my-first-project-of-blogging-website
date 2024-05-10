@@ -9,9 +9,10 @@ import 'react-circular-progressbar/dist/styles.css';
  import { useDispatch } from 'react-redux'
  import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { Modal } from 'flowbite-react'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 export default function DashProfile() {
-     
+      
+  const navigate=useNavigate();
     const filePicker=useRef()
     const dispatch=useDispatch();
     const {currentUser,loading ,error}=useSelector((state)=> state.user);
@@ -151,6 +152,7 @@ export default function DashProfile() {
          }
          else{
             dispatch(deleteSuccess(data))
+            navigate('/')
          }
        } catch (error) {
           dispatch(detelteFailure(error.message));
@@ -170,6 +172,8 @@ export default function DashProfile() {
           } 
           else{
             dispatch(signoutSuccess(data))
+            navigate('/')
+            
           }
               
         } catch (error) {
