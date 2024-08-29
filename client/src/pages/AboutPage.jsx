@@ -7,7 +7,7 @@ export default function AboutPage() {
       
      <span className="  text-4xl font-serif ">Frontend Skills</span> : 
      <li className=" ml-6"> <span className=" text-xl"> React js:</span> A good knowledge  of react js  </li>  
-     <li className=" ml-6"> <span className=" text-xl"> Javasc:</span> A good knowledge  of javasciprt   </li>  
+     <li className=" ml-6"> <span className=" text-xl"> Javascript:</span> A good knowledge  of javasciprt   </li>  
       
      <span className="  text-4xl font-serif  mt-3">Backened </span> : 
      <li className=" ml-6"> <span className=" text-xl"> Node js:</span> A little bit experience of node js  </li>  
